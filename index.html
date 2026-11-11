@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alex Stevens — Technical Product Manager</title>
+<meta name="description" content="Resume of Alex Stevens, Sr. Technical Product Manager in mortgage lending technology.">
+<style>
+:root{
+  --bg:#1e1e1e; --side:#252526; --act:#333333; --tab:#2d2d2d; --line:#3c3c3c;
+  --fg:#d4d4d4; --dim:#858585; --sel:#37373d; --status:#007acc; --focus:#007fd4;
+  --c-com:#6a9955; --c-str:#ce9178; --c-kw:#569cd6; --c-ctl:#c586c0; --c-fn:#dcdcaa;
+  --c-num:#b5cea8; --c-cls:#4ec9b0; --c-var:#9cdcfe;
+  --mono:"Cascadia Code","JetBrains Mono","SF Mono",Menlo,Consolas,"DejaVu Sans Mono",monospace;
+  --ui:-apple-system,"Segoe UI",system-ui,Roboto,"Helvetica Neue",sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--ui);font-size:13px;overflow:hidden}
+a{color:var(--c-str);text-underline-offset:3px}
+a:hover{color:#e9a98f}
+:focus-visible{outline:1px solid var(--focus);outline-offset:-1px}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+#app{display:grid;grid-template-rows:30px 1fr 22px;height:100%;height:100dvh}
+#title{display:flex;align-items:center;justify-content:center;background:#323233;color:var(--dim);font-size:12px;border-bottom:1px solid #000;position:relative}
+#title .dots{position:absolute;left:12px;display:flex;gap:8px}
+#title .dots i{width:11px;height:11px;border-radius:50%;background:#ff5f57}
+#title .dots i:nth-child(2){background:#febc2e}
+#title .dots i:nth-child(3){background:#28c840}
+
+#body{display:grid;grid-template-columns:48px 250px 1fr;min-height:0}
+#activity{background:var(--act);display:flex;flex-direction:column;align-items:center;padding-top:6px;gap:2px}
+#activity button{width:48px;height:48px;display:grid;place-items:center;color:#858585;border-left:2px solid transparent}
+#activity button.on,#activity button:hover{color:#fff}
+#activity button.on{border-left-color:#fff}
+#activity svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.5}
+
+#side{background:var(--side);overflow:auto;min-width:0}
+#side h2{font-size:11px;font-weight:400;letter-spacing:.08em;padding:10px 20px;color:#bbb;text-transform:uppercase}
+.folder{display:flex;align-items:center;gap:6px;padding:3px 10px;font-weight:700;font-size:11px;text-transform:uppercase;color:#ccc}
+.folder::before{content:"⌄";font-size:14px;line-height:1;margin-top:-4px}
+#files{list-style:none;padding:0}
+#files button{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:4px 10px 4px 26px;height:24px;color:#ccc}
+#files button:hover{background:#2a2d2e}
+#files button.on{background:var(--sel);color:#fff}
+.ico{font:700 9px/1 var(--mono);width:16px;text-align:center;flex:none}
+.ico.py{color:#6aa5d8}
+.ico.txt{color:#a0a0a0}
+
+#main{display:flex;flex-direction:column;min-width:0;min-height:0}
+#tabs{display:flex;background:var(--tab);overflow-x:auto;flex:none;scrollbar-width:none}
+#tabs::-webkit-scrollbar{display:none}
+.tab{display:flex;align-items:center;gap:8px;padding:0 8px 0 12px;height:35px;background:var(--tab);color:var(--dim);border-right:1px solid var(--bg);white-space:nowrap;flex:none;cursor:pointer;border-top:1px solid transparent}
+.tab.on{background:var(--bg);color:#fff;border-top-color:var(--status)}
+.tab .x{width:18px;height:18px;border-radius:4px;display:grid;place-items:center;color:inherit;opacity:0}
+.tab.on .x,.tab:hover .x{opacity:1}
+.tab .x:hover{background:#ffffff1f}
+#crumb{padding:4px 16px;color:var(--dim);font-size:12px;flex:none}
+#editor{flex:1;overflow:auto;padding:4px 0 40px;font-family:var(--mono);font-size:13.5px;line-height:21px;min-height:0}
+.ln{display:flex}
+.ln .n{flex:none;width:56px;padding-right:20px;text-align:right;color:#6e7681;user-select:none}
+.ln .t{flex:1;white-space:pre-wrap;overflow-wrap:anywhere;padding-right:24px;min-width:0}
+.ln .t.i1{padding-left:4ch;text-indent:0}
+.ln:hover{background:#ffffff08}
+.com{color:var(--c-com)}.str{color:var(--c-str)}.kw{color:var(--c-kw)}.ctl{color:var(--c-ctl)}
+.fn{color:var(--c-fn)}.num{color:var(--c-num)}.cls{color:var(--c-cls)}.var{color:var(--c-var)}
+#cursor{display:inline-block;width:2px;height:16px;background:#aeafad;vertical-align:text-bottom;animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){#cursor{animation:none}}
+
+#status{background:var(--status);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:12px;white-space:nowrap;overflow:hidden}
+#status div{display:flex;gap:16px}
+
+@media (max-width:760px){
+  #body{grid-template-columns:44px 1fr}
+  #side{position:fixed;top:30px;bottom:22px;left:44px;width:min(260px,80vw);z-index:5;box-shadow:4px 0 12px #0008;display:none}
+  body.open #side{display:block}
+  #activity button{width:44px}
+  .ln .n{width:40px;padding-right:12px}
+  #status .hide-s{display:none}
+  #editor{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header id="title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="wtitle">alex_stevens — Visual Studio Code</span></header>
+  <div id="body">
+    <nav id="activity" aria-label="Activity bar">
+      <button class="on" id="toggle" aria-label="Toggle explorer" title="Explorer">
+        <svg viewBox="0 0 24 24"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5zM14 3v5h5M9 13h6M9 17h6"/></svg>
+      </button>
+    </nav>
+    <aside id="side" aria-label="Explorer">
+      <h2>Explorer</h2>
+      <div class="folder">alex-stevens</div>
+      <ul id="files"></ul>
+    </aside>
+    <main id="main">
+      <div id="tabs" role="tablist"></div>
+      <div id="crumb"></div>
+      <div id="editor" tabindex="0"></div>
+    </main>
+  </div>
+  <footer id="status">
+    <div><span>⎇ main</span><span class="hide-s">⊗ 0 ⚠ 0</span></div>
+    <div><span id="pos">Ln 1, Col 1</span><span class="hide-s">Spaces: 4</span><span class="hide-s">UTF-8</span><span id="lang">Python</span></div>
+  </footer>
+</div>
+
+<script>
+const FILES = {
+"about_me.py": `# about_me.py
+from dataclasses import dataclass
+
+@dataclass
+class AlexStevens:
+    title = "Sr. Technical Product Manager"
+    company = "Newfi Lending"
+    location = "Southern California"
+    years_experience = "5+"
+    domain = "Mortgage lending technology"
+    resume = "Alex_Stevens_Resume_TPM.pdf"
+
+    summary = (
+        "I started in software support, moved into QA and analysis, "
+        "and now own product for a wholesale lending portal. "
+        "I turn operational and compliance requirements into shipped "
+        "features by working directly with engineering, design, "
+        "and the business."
+    )
+
+    def track_record(self):
+        return [
+            "Launched secure integrations that replace manual workflows",
+            "Cut operational risk in sensitive borrower-document handling",
+            "Write the PRD, then test the API and query the data myself",
+        ]
+
+# Open experience.py, projects.py or contact.txt in the explorer.`,
+
+"experience.py": `# experience.py
+career = [
+    {
+        "role": "Sr. Technical Product Manager",
+        "company": "Newfi Lending (Remote)",
+        "dates": "Feb 2022 - Present",
+        "highlights": [
+            "Own the roadmap for the Wholesale Lending Portal, Newfi's largest origination channel, with a dedicated pod of engineers and a designer",
+            "Partner with compliance and operations leadership to turn business and regulatory requirements into PRDs and user stories",
+            "Prioritize and manage delivery through Agile ceremonies in Asana",
+            "Validate releases with SQL and Postman; document architecture and process flows in Lucidchart",
+            "Prototype UI concepts in Bolt to speed up design handoff and stakeholder feedback",
+        ],
+    },
+    {
+        "role": "Software Analyst",
+        "company": "CU Direct (Irvine, CA)",
+        "dates": "Jan 2021 - Feb 2022",
+        "highlights": [
+            "Worked with implementation, development and QA teams on client-facing systems, including a new client ticketing system",
+            "First point of review for incoming tickets: triaged, escalated, and ran daily prioritization meetings with production clients",
+            "Mined recurring client feedback for functionality gaps to shape the product backlog",
+            "QA-tested every new feature before release; built Postman GET/POST checks for vendor data validity",
+        ],
+    },
+    {
+        "role": "Software Support Analyst",
+        "company": "MeridianLink Inc. (Costa Mesa, CA)",
+        "dates": "Jul 2018 - Dec 2020",
+        "highlights": [
+            "Tier 1 support for 200+ clients; 98% of cases delivered within SLA",
+            "QA and debugging in SQL, JavaScript and C#; built custom data extraction reports",
+            "Coded and deployed system-generated compliance documents with XML, C# and PDF design",
+            "Mentored and onboarded new analysts; led a cross-department effort to streamline compliance document deployment",
+        ],
+    },
+]`,
+
+"projects.py": `# projects.py
+
+def income_iq():
+    """Income IQ (IIQ) - Newfi Lending"""
+    return {
+        "what": "A connector inside the broker portal that links brokers directly to Newfi's bank statement analysis engine",
+        "role": "Led end-to-end product development",
+        "before": "Slow, less secure email-based file exchange",
+        "after": "Self-service, in-portal submission with results returned quickly",
+        "impact": [
+            "Less manual handling",
+            "Stronger security for sensitive borrower financial documents",
+        ],
+    }
+
+
+def wholesale_portal():
+    """Wholesale Lending Portal - Newfi Lending"""
+    return {
+        "what": "Newfi's largest origination channel",
+        "role": "Roadmap owner for feature work and platform maintenance",
+        "team": "Dedicated pod of engineers and a designer",
+    }
+
+
+def automation_server():
+    """Internal full-stack automation server"""
+    return {
+        "what": "Several automated processes that remove manual operational work",
+        "role": "Built and maintain it myself",
+        "impact": "Better team efficiency",
+    }`,
+
+"skills.py": `# skills.py
+product = [
+    "Roadmapping", "PRDs & user stories", "Agile/Scrum",
+    "Backlog prioritization", "Stakeholder management",
+]
+
+technical = [
+    "Python", "SQL", "Java", "Object-Oriented Programming",
+    "Postman (API testing/integration)", "XML",
+]
+
+tools = [
+    "Asana", "Jira", "Azure DevOps", "Lucidchart",
+    "Bolt", "Figma", "Salesforce", "Git",
+]`,
+
+"education.py": `# education.py
+education = {
+    "degree": "A.S., Computer Information Systems",
+    "focus": "Programming and Mathematics",
+    "school": "Mt. San Jacinto College",
+    "location": "San Jacinto, CA",
+}`,
+
+"contact.txt": `Alex Stevens
+Sr. Technical Product Manager
+Southern California
+
+Email     AlexanderLStevens@gmail.com
+LinkedIn  https://linkedin.com/in/astvns9
+
+Resume    Alex_Stevens_Resume_TPM.pdf`
+};
+
+const KW=/^(def|class|return|import|from|True|False|None|self|for|in|if|else|as)$/;
+const CTL=/^(return|import|from|if|else|for|as)$/;
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function link(s){
+  return esc(s).replace(/(https?:\/\/[^\s"<]+)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>')
+    .replace(/([\w.+-]+@[\w-]+\.[\w.]+)/g,'<a href="mailto:$1">$1</a>')
+    .replace(/(Alex_Stevens_Resume_TPM\.pdf)/g,'<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+function hl(line){
+  const re=/(#.*$)|("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(\b\d+\b)|([A-Za-z_]\w*)/g;
+  let out="",last=0,m;
+  while((m=re.exec(line))){
+    out+=esc(line.slice(last,m.index));last=re.lastIndex;
+    if(m[1])out+=`<span class="com">${esc(m[1])}</span>`;
+    else if(m[2])out+=`<span class="str">${esc(m[2]).replace(/Alex_Stevens_Resume_TPM\.pdf/,'<a href="Alex_Stevens_Resume_TPM.pdf" download>$&</a>')}</span>`;
+    else if(m[3])out+=`<span class="num">${m[3]}</span>`;
+    else{
+      const w=m[4],rest=line.slice(last),prev=line.slice(0,m.index);
+      let c="";
+      if(CTL.test(w))c="ctl";else if(KW.test(w))c="kw";
+      else if(/class\s+$/.test(prev)||w==="dataclass")c="cls";
+      else if(/def\s+$/.test(prev))c="fn";
+      else if(/^\s*=/.test(rest)||/^\s*:\s/.test(rest)&&false)c="var";
+      out+=c?`<span class="${c}">${w}</span>`:esc(w);
+    }
+  }
+  return out+esc(line.slice(last));
+}
+function render(name){
+  const txt=name.endsWith(".txt");
+  return FILES[name].split("\n").map((l,i)=>
+    `<div class="ln" data-l="${i+1}"><span class="n">${i+1}</span><span class="t">${txt?link(l):hl(l)}</span></div>`
+  ).join("")+`<div class="ln"><span class="n">${FILES[name].split("\n").length+1}</span><span class="t"><span id="cursor"></span></span></div>`;
+}
+
+const $=id=>document.getElementById(id);
+const names=Object.keys(FILES);
+let open=[],active=null;
+
+$("files").innerHTML=names.map(n=>
+  `<li><button data-f="${n}"><span class="ico ${n.endsWith(".py")?"py":"txt"}">${n.endsWith(".py")?"py":"txt"}</span>${n}</button></li>`).join("");
+
+function show(name,push=true){
+  if(!FILES[name])name="about_me.py";
+  if(!open.includes(name))open.push(name);
+  active=name;
+  $("tabs").innerHTML=open.map(n=>
+    `<div class="tab${n===name?" on":""}" role="tab" tabindex="0" data-t="${n}" aria-selected="${n===name}"><span class="ico ${n.endsWith(".py")?"py":"txt"}">${n.endsWith(".py")?"py":"txt"}</span>${n}<button class="x" data-x="${n}" aria-label="Close ${n}">×</button></div>`).join("");
+  document.querySelectorAll("#files button").forEach(b=>b.classList.toggle("on",b.dataset.f===name));
+  $("crumb").textContent="alex-stevens  ›  "+name;
+  $("editor").innerHTML=render(name);
+  $("editor").scrollTop=0;
+  $("lang").textContent=name.endsWith(".py")?"Python":"Plain Text";
+  $("wtitle").textContent=name+" — alex_stevens — Visual Studio Code";
+  document.title=name+" · Alex Stevens";
+  const n=FILES[name].split("\n").length+1;$("pos").textContent=`Ln ${n}, Col 1`;
+  if(push){try{history.replaceState(null,"","#"+name)}catch(err){/* sandboxed preview: skip URL update */}}
+  document.body.classList.remove("open");
+}
+function close(name){
+  const i=open.indexOf(name);open.splice(i,1);
+  if(!open.length)return show("about_me.py");
+  if(name===active)show(open[Math.min(i,open.length-1)]);else show(active);
+}
+document.addEventListener("click",e=>{
+  const f=e.target.closest("[data-f]"),x=e.target.closest("[data-x]"),t=e.target.closest("[data-t]");
+  if(x){e.stopPropagation();close(x.dataset.x)}
+  else if(f)show(f.dataset.f);
+  else if(t)show(t.dataset.t);
+});
+document.addEventListener("keydown",e=>{
+  if((e.key==="Enter"||e.key===" ")&&e.target.classList.contains("tab")){e.preventDefault();show(e.target.dataset.t)}
+});
+$("toggle").addEventListener("click",()=>{
+  if(matchMedia("(max-width:760px)").matches)document.body.classList.toggle("open");
+  else{const s=$("side"),hide=s.style.display!=="none";s.style.display=hide?"none":"";$("body").style.gridTemplateColumns=hide?"48px 0 1fr":"";}
+});
+$("editor").addEventListener("click",e=>{
+  const l=e.target.closest(".ln");if(l)$("pos").textContent=`Ln ${l.dataset.l||FILES[active].split("\n").length+1}, Col 1`;
+});
+addEventListener("hashchange",()=>show(decodeURIComponent(location.hash.slice(1))||"about_me.py",false));
+show(decodeURIComponent(location.hash.slice(1))||"about_me.py",false);
+</script>
+</body>
+</html>
