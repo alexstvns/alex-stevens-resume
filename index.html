@@ -85,7 +85,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 </head>
 <body>
 <div id="app">
-  <header id="title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="wtitle">alex_stevens</span></header>
+  <header id="title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><span id="wtitle">alex_stevens — Visual Studio Code</span></header>
   <div id="body">
     <nav id="activity" aria-label="Activity bar">
       <button class="on" id="toggle" aria-label="Toggle explorer" title="Explorer">
@@ -293,12 +293,13 @@ function show(name,push=true){
   active=name;
   $("tabs").innerHTML=open.map(n=>
     `<div class="tab${n===name?" on":""}" role="tab" tabindex="0" data-t="${n}" aria-selected="${n===name}"><span class="ico ${n.endsWith(".py")?"py":"txt"}">${n.endsWith(".py")?"py":"txt"}</span>${n}<button class="x" data-x="${n}" aria-label="Close ${n}">×</button></div>`).join("");
+  const at=document.querySelector(".tab.on");if(at&&at.scrollIntoView)at.scrollIntoView({block:"nearest",inline:"nearest"});
   document.querySelectorAll("#files button").forEach(b=>b.classList.toggle("on",b.dataset.f===name));
   $("crumb").textContent="alex-stevens  ›  "+name;
   $("editor").innerHTML=render(name);
   $("editor").scrollTop=0;
   $("lang").textContent=name.endsWith(".py")?"Python":"Plain Text";
-  $("wtitle").textContent=name+" — alex_stevens";
+  $("wtitle").textContent=name+" — alex_stevens — Visual Studio Code";
   document.title=name+" · Alex Stevens";
   const n=FILES[name].split("\n").length+1;$("pos").textContent=`Ln ${n}, Col 1`;
   if(push){try{history.replaceState(null,"","#"+name)}catch(err){/* sandboxed preview: skip URL update */}}
@@ -326,6 +327,7 @@ $("editor").addEventListener("click",e=>{
   const l=e.target.closest(".ln");if(l)$("pos").textContent=`Ln ${l.dataset.l||FILES[active].split("\n").length+1}, Col 1`;
 });
 addEventListener("hashchange",()=>show(decodeURIComponent(location.hash.slice(1))||"about_me.py",false));
+if(matchMedia("(max-width:760px)").matches)open=names.slice(); // phones: all tabs open, since the explorer is hidden
 show(decodeURIComponent(location.hash.slice(1))||"about_me.py",false);
 </script>
 </body>
